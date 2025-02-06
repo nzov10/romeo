@@ -1,0 +1,19 @@
+/* Video Container */
+.video-container {
+    margin-top: 30px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centers the video */
+    align-items: center; /* Centers the video */
+    width: 100%; /* Ensures the container takes the full width */
+    max-width: 750px; /* Limits the max width of the video */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Video Styling */
+video {
+    width: 100%; /* Makes the video responsive */
+    max-width: 750px; /* Ensures the video doesn't exceed the desired width */
+    height: auto; /* Maintains the aspect ratio */
+}
