@@ -66,8 +66,9 @@
             font-size: 1.2em;
             width: 80%;
             max-width: 500px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
+            border: 2px solid black; /* Black outline */
+            border-radius: 0; /* Sharp, squared edges */
+            box-sizing: border-box; /* Ensures padding is included in width calculation */
         }
         button[type="submit"] {
             background-color: red;
@@ -78,8 +79,27 @@
             border: none;
             cursor: pointer;
             text-transform: uppercase;
+            border-radius: 0; /* Sharp edges */
         }
         button[type="submit"]:hover {
+            background-color: black;
+        }
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        .social-buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: red; /* Set all buttons to red */
+            padding: 15px 30px; /* Uniform size for all buttons */
+            margin: 0 10px;
+            font-size: 1.5em;
+            display: inline-block; /* Ensures buttons are uniform and aligned */
+            border-radius: 0; /* Sharp edges */
+        }
+        .social-buttons a:hover {
             background-color: black;
         }
     </style>
@@ -119,6 +139,12 @@
             <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
             <button type="submit">Submit</button>
         </form>
+    </div>
+
+    <div class="social-buttons">
+        <a href="https://www.facebook.com/romeohitlall2025" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com/romeohitlall/" target="_blank">Instagram</a>
+        <a href="https://x.com/hitlallromeo" target="_blank">TWITTER</a>
     </div>
 </body>
 </html>
