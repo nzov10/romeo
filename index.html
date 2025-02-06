@@ -88,16 +88,19 @@
             display: flex;
             justify-content: center;
             margin-top: 40px;
+            flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
         }
         .social-buttons a {
             text-decoration: none;
             color: white;
             background-color: red; /* Set all buttons to red */
             padding: 15px 30px; /* Uniform size for all buttons */
-            margin: 0 10px;
+            margin: 10px;
             font-size: 1.5em;
             display: inline-block; /* Ensures buttons are uniform and aligned */
             border-radius: 0; /* Sharp edges */
+            width: 200px; /* Set width to 200px for consistency */
+            text-align: center; /* Center text in buttons */
         }
         .social-buttons a:hover {
             background-color: black;
@@ -147,6 +150,30 @@
             bottom: 0;
             width: 100%;
         }
+
+        /* Media Queries for smaller devices */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3em; /* Make title smaller on mobile */
+            }
+            .cta {
+                font-size: 1.2em; /* Smaller button text on mobile */
+                padding: 12px 25px;
+            }
+            .key-issue {
+                font-size: 1.5em; /* Make key issue text smaller on mobile */
+            }
+            .social-buttons a {
+                width: 100%; /* Make buttons full width on mobile */
+                padding: 12px 20px; /* Adjust padding for mobile */
+                font-size: 1.2em; /* Smaller font size */
+                margin: 5px 0; /* Smaller margin */
+            }
+            .video-container {
+                padding: 0 10px; /* Make sure video doesn't overflow */
+            }
+        }
+
     </style>
 </head>
 <body>
