@@ -88,19 +88,48 @@
             display: flex;
             justify-content: center;
             margin-top: 40px;
+            flex-wrap: wrap; /* Ensure buttons wrap on smaller screens */
+            gap: 10px; /* Space between buttons */
         }
         .social-buttons a {
             text-decoration: none;
             color: white;
             background-color: red; /* Set all buttons to red */
             padding: 15px 30px; /* Uniform size for all buttons */
-            margin: 0 10px;
             font-size: 1.5em;
             display: inline-block; /* Ensures buttons are uniform and aligned */
             border-radius: 0; /* Sharp edges */
         }
         .social-buttons a:hover {
             background-color: black;
+        }
+        /* Media query for mobile devices */
+        @media (max-width: 768px) {
+            .cta {
+                font-size: 1.2em; /* Smaller buttons on mobile */
+                padding: 12px 25px;
+            }
+            .title {
+                font-size: 2.5em; /* Smaller title on mobile */
+            }
+            h2 {
+                font-size: 2.5em; /* Smaller subheadings on mobile */
+            }
+            .key-issue {
+                font-size: 1.8em; /* Smaller text for key issues on mobile */
+            }
+            .social-buttons a {
+                font-size: 1.2em; /* Smaller text on social buttons */
+                padding: 10px 20px; /* Smaller button size */
+            }
+            form input, form textarea {
+                width: 90%; /* Form inputs take up more space on mobile */
+            }
+        }
+        .footer-text {
+            font-size: 0.8em; /* Smaller text for footer */
+            color: #888;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -144,8 +173,13 @@
     <div class="social-buttons">
         <a href="https://www.facebook.com/romeohitlall2025" target="_blank">Facebook</a>
         <a href="https://www.instagram.com/romeohitlall/" target="_blank">Instagram</a>
-        <a href="https://x.com/hitlallromeo" target="_blank">TWITTER</a>
+        <a href="https://x.com/hitlallromeo" target="_blank">X</a>
+    </div>
+
+    <div class="footer-text">
+        <p>PAID FOR BY FRIENDS OF DR. JOSHUA HITLALL</p>
     </div>
 </body>
 </html>
+
 
