@@ -54,12 +54,11 @@
             border-radius: 10px;
         }
 
-        /* Close Button */
 .close-btn {
     position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%); /* Center it vertically */
+    top: 10px; /* Aligns to the top */
+    right: 10px; /* Keeps it aligned to the right */
+    transform: none; /* Removes vertical centering */
     background: red;
     color: white;
     border: none;
@@ -74,12 +73,14 @@
     justify-content: center;
 }
 
-/* Adjust for smaller screens */
+/* Adjust specifically for mobile */
 @media (max-width: 768px) {
     .close-btn {
-        top: 10px; /* Move it slightly up */
-        right: 10px;
-        transform: none; /* Remove vertical centering on very small screens */
+        top: 5px; /* Move it slightly up */
+        right: 5px; /* Adjust right padding */
+        width: 25px; /* Make it slightly smaller for mobile */
+        height: 25px;
+        font-size: 18px;
     }
 }
 
@@ -419,16 +420,18 @@
         }
 
         // Function to toggle visibility of individual issues
-        function toggleIssue(issueId) {
-            var issueContent = document.getElementById(issueId);
+          function toggleIssue(issueId) {
+        let issueText = document.getElementById(issueId);
+        let keyIssue = issueText.previousElementSibling; // Get the clickable issue title
 
-            if (issueContent.style.display === "none") {
-                issueContent.style.display = "block";
-            } else {
-                issueContent.style.display = "none";
-            }
+        if (issueText.style.display === "block") {
+            issueText.style.display = "none";
+            keyIssue.classList.remove("grow");
+        } else {
+            issueText.style.display = "block";
+            keyIssue.classList.add("grow");
         }
-
+    }
         // Set sections to be closed on page load
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('meetRomeo').style.display = 'none';
@@ -448,5 +451,7 @@
         setTimeout(showPopup, 3000);
     </script>
 </body>
+
+</html>
 
 </html>
