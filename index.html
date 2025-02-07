@@ -51,7 +51,7 @@
             color: red;
         }
         h2 {
-            font-size: 3em; /* This makes subheadings 2x larger */
+            font-size: 1.5em; /* This makes subheadings 2x larger */
         }
         img {
             max-width: 400px; /* Set the image width to 400px */
@@ -60,16 +60,22 @@
             width: auto;
             margin-top: 20px;
         }
-        .key-issue {
-            font-size: 3em; /* Make the text under KEY ISSUES larger */
-            cursor: pointer;
-            color: red;
-        }
-        .issue-text {
-            display: none;
-            font-size: 1.5em;
-            margin-top: 10px;
-        }
+      .key-issue {
+    font-size: 3em; /* Initial size */
+    cursor: pointer;
+    color: red;
+    transition: font-size 0.3s ease; /* Smooth transition */
+}
+
+.key-issue.grow {
+    font-size: 3.6em; /* 1.2x larger when clicked */
+}
+
+.issue-text {
+    display: none; /* Hidden by default */
+    font-size: 1.5em;
+    margin-top: 10px;
+}
         form {
             display: flex;
             flex-direction: column;
@@ -302,16 +308,22 @@
 
     <a href="https://contribute.nycvotes.org/campaigns/romeohitlall/contributions/new" class="fixed-donate" target="_blank">DONATE NOW</a>
 
-    <script>
-        function toggleIssue(issueId) {
-            var issueText = document.getElementById(issueId);
-            if (issueText.style.display === "none") {
-                issueText.style.display = "block";
-            } else {
-                issueText.style.display = "none";
-            }
+   <script>
+    function toggleIssue(issueId) {
+        var issueText = document.getElementById(issueId);
+        var keyIssue = issueText.previousElementSibling; // This targets the .key-issue title
+
+        // Toggle visibility of the issue text
+        if (issueText.style.display === "none") {
+            issueText.style.display = "block"; // Show the issue text
+            keyIssue.classList.add("grow"); // Make the title grow
+        } else {
+            issueText.style.display = "none"; // Hide the issue text
+            keyIssue.classList.remove("grow"); // Reset the title size
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
 
