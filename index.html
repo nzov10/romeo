@@ -17,9 +17,64 @@
             font-weight: bold;
             text-transform: uppercase; /* Convert all text to uppercase */
         }
+	
         .section {
             padding: 40px 20px;
-        } 
+        }  
+
+		        /* Popup Background */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Popup Content */
+        .popup-content {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        /* Popup Image */
+        .popup-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            background: black;
+        
+	
+        }
 	 .cta {
             background-color: red;
             color: white;
@@ -195,10 +250,11 @@
             }
             .video-container {
                 padding: 0 10px; /* Make sure video doesn't overflow */
-            }
-	
-        }
+            } 
 
+
+
+	}
     </style>
 </head>
 <body>
@@ -326,7 +382,13 @@
         <p>Paid for by friends of Dr. Joshua Hitlall</p>
     </footer>
 
-    <a href="https://contribute.nycvotes.org/campaigns/romeohitlall/contributions/new" class="fixed-donate" target="_blank">DONATE</a>
+    <a href="https://contribute.nycvotes.org/campaigns/romeohitlall/contributions/new" class="fixed-donate" target="_blank">DONATE</a> 
+
+	 <!-- Popup Container -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup()">X</button>
+            <img src="doc_orders.png" alt="Campaign Image">
 
    <script>
         // Function to toggle visibility of sections
@@ -359,7 +421,21 @@
             document.getElementById('meetRomeo').style.display = 'none';
             document.getElementById('keyIssues').style.display = 'none';
         });
+    	      // Function to show popup after 3 seconds
+        function showPopup() {
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        // Function to close popup
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // Trigger popup after 3 seconds
+        setTimeout(showPopup, 3000);
     </script>
 </body>
+
+</html>
 
 </html>
