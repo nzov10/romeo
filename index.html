@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROMEO HITLALL FOR NYC COUNCIL DISTRICT 28</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet"> 
     <style>
         body {
             font-family: 'Source Sans Pro', sans-serif;
@@ -18,7 +18,16 @@
         }
         .section {
             padding: 40px 20px;
-        }
+        } 
+/* Styling for the logo image */
+       .logo {
+    width: 100%;            /* Make the image width responsive */
+    max-width: 100%;        /* Ensure the logo takes up the full width of the container */
+    height: auto;           /* Maintain the aspect ratio by adjusting the height automatically */
+    display: block;         /* Make the image behave as a block element */
+    margin: 0 auto;         /* Center the logo horizontally */
+}
+
         .cta {
             background-color: red;
             color: white;
@@ -52,7 +61,7 @@
             margin-top: 20px;
         }
         .key-issue {
-            font-size: 2em; /* Make the text under KEY ISSUES larger */
+            font-size: 3em; /* Make the text under KEY ISSUES larger */
             cursor: pointer;
             color: red;
         }
@@ -184,10 +193,12 @@
     </style>
 </head>
 <body>
-    <div class="section">
-        <h1 class="title">ROMEO HITLALL<br>FOR<br><span class="red-text">NYC COUNCIL DISTRICT 28</span></h1>
-        <img src="romeobw.png" alt="ROMEO HITLALL" width="300">
-        <h2>FIGHTING FOR A BETTER, SAFER, AFFORDABLE DISTRICT 28</h2>
+   <div class="section">
+     <img src="romeo_logo.png" alt="ROMEO HITLALL FOR NYC COUNCIL DISTRICT 28" class="logo">
+    </div>
+
+        <img src="romeobw.png" alt="ROMEO HITLALL" width="600">
+        <h2>FIGHTING FOR A BETTER, SAFER, MORE AFFORDABLE DISTRICT 28</h2>
         <a href="https://contribute.nycvotes.org/campaigns/romeohitlall/contributions/new" class="cta" target="_blank">DONATE</a> <!-- Donate button with link -->
     </div>
     
@@ -211,7 +222,7 @@
      </div>
     <div class="section">
         <h2>KEY ISSUES</h2>
-<p style="font-size: .8em; color: black;">CLICK AN ISSUE TO LEARN MORE</p> <!-- Added text -->
+<p style="font-size: .8em; color: blue;">CLICK AN ISSUE TO LEARN MORE</p> <!-- Added text -->
        <div class="issue" onclick="toggleIssue('safety')">
     <p class="key-issue">PUBLIC SAFETY</p>
     <div id="safety" class="issue-text">
