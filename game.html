@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collect the Dollars</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
+
+        body {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        #gameArea {
+            width: 400px;
+            height: 400px;
+            border: 2px solid black;
+            position: relative;
+            margin: auto;
+            background-color: lightgray;
+            overflow: hidden;
+            display: none;
+        }
+        .dollar {
+            width: 20px;
+            height: 20px;
+            background-color: gold;
+            position: absolute;
+            font-size: 16px;
+            text-align: center;
+            line-height: 20px;
+        }
+        #bucket {
+            width: 60px;
+            height: 60px;
+            background: url('bucket.png') no-repeat center center;
+            background-size: cover;
+            position: absolute;
+            bottom: 10px;
+            left: 170px;
+        }
+        .enemy {
+            width: 67.5px; /* Full-size Hanky image width */
+            height: 67.5px; /* Full-size Hanky image height */
+            position: absolute;
+            background: url('hanky.png') no-repeat center center;
+            background-size: cover; /* Display the entire image */
+        }
+        #startMenu {
+            text-align: center;
+            margin-top: 50px;
+        }
+        #startButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #rules {
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div id="startMenu">
+        <h1>HANKY PANKY'S TRICKS</h1>
+        <div id="rules">
+            <p>1. Use the bucket to collect the falling cash.</p>
+            <p>2. Watch out for Hanky Panky.</p>
+            <p>3. Stay as far away from Hanky Panky, he has long arms.</p>
+        </div>
+        <button id="startButton">Start Game</button>
+    </div>
+    <h1>Collect the Dollars!</h1>
+    <p>Score: <span id="score">0</span> | Lives: <span id="lives">3</span></p>
+    <div id="gameArea">
+        <div id="bucket"></div>
+    </div>
+    
+    <script>
+        let score = 0;
+        let lives = 3;
+        const gameArea = document.getElementById("gameArea");
+        const scoreDisplay = document.getElementById("score");
+        const livesDisplay = document.getElementById("lives");
+        const bucket = document.getElementById("bucket");
+        let bucketPosition = 170;
+        const startMenu = document.getElementById("startMenu");
+        const startButton = document.getElementById("startButton");
+
+        startButton.addEventListener("click", () => {
+            startMenu.style.display = "none";
+            gameArea.style.display = "block";
+            spawnMultipleDollars();
+            setTimeout(createEnemy, 5000);
+        });
+
+        function getRandomValue() {
+            const values = [1, 5, 10, 20, 50, 100];
+            const chances = [50, 25, 12, 7, 4, 2];
+            let sum = chances.reduce((a, b) => a + b, 0);
+            let rand = Math.random() * sum;
+            for (let i = 0; i < values.length; i++) {
+                if (rand < chances[i]) return values[i];
+                rand -= chances[i];
+            }
+            return 1;
+        }
+
+        function createDollar() {
+            const dollar = document.createElement("div");
+            dollar.classList.add("dollar");
+            let value = getRandomValue();
+            dollar.innerText = "$" + value;
+            dollar.dataset.value = value;
+            dollar.style.left = Math.random() * (gameArea.clientWidth - 20) + "px";
+            dollar.style.top = "0px";
+            
+            gameArea.appendChild(dollar);
+            
+            let fallInterval = setInterval(() => {
+                let currentTop = parseInt(dollar.style.top);
+                let dollarLeft = parseInt(dollar.style.left);
+                let bucketLeft = parseInt(bucket.style.left);
+                let bucketRight = bucketLeft + 60; // Updated for bucket width
+                
+                if (currentTop >= gameArea.clientHeight - 30) {
+                    if (dollarLeft >= bucketLeft && dollarLeft <= bucketRight) {
+                        score += parseInt(dollar.dataset.value);
+                        scoreDisplay.innerText = score;
+                    }
+                    dollar.remove(); // Remove dollar if it hits the bottom or the bucket
+                    clearInterval(fallInterval);
+                } else {
+                    dollar.style.top = currentTop + 5 + "px";
+                }
+            }, 100);
+        }
+
+        function spawnMultipleDollars() {
+            setInterval(() => {
+                createDollar();
+            }, 1000);
+        }
+
+        function createEnemy() {
+            const enemy = document.createElement("div");
+            enemy.classList.add("enemy");
+            enemy.style.left = Math.random() * (gameArea.clientWidth - 67.5) + "px"; // Full-size Hanky width
+            enemy.style.top = "0px";
+            
+            gameArea.appendChild(enemy);
+            
+            let fallSpeed = Math.max(50 - score / 10, 10);
+            let fallInterval = setInterval(() => {
+                let currentTop = parseInt(enemy.style.top);
+                let enemyLeft = parseInt(enemy.style.left);
+                let enemyRight = enemyLeft + 67.5; // Full-size Hanky width
+                let bucketLeft = parseInt(bucket.style.left);
+                let bucketRight = bucketLeft + 60; // Updated for bucket width
+                
+                // Define reduced hitbox for Hanky (25% of sprite size)
+                const hitboxWidth = 67.5 * 0.25;
+                const hitboxHeight = 67.5 * 0.25;
+
+                let enemyHitboxLeft = enemyLeft + (67.5 - hitboxWidth) / 2; // Center the hitbox
+                let enemyHitboxRight = enemyHitboxLeft + hitboxWidth;
+                let enemyHitboxTop = currentTop + (67.5 - hitboxHeight) / 2;
+                let enemyHitboxBottom = enemyHitboxTop + hitboxHeight;
+
+                // Check if the enemy hitbox intersects with the bucket (left and right sides)
+                if (currentTop >= gameArea.clientHeight - 30) {
+                    if (enemyHitboxRight >= bucketLeft && enemyHitboxLeft <= bucketRight) {
+                        alert("HANKY PANKY STOLE YOUR MONEY");
+                        score -= 10;
+                        if (score < 0) score = 0;
+                        scoreDisplay.innerText = score;
+
+                        lives--; // Decrease lives when Hanky hits the bucket
+                        livesDisplay.innerText = lives; // Update lives display
+                        
+                        if (lives <= 0) {
+                            alert("Game Over!");
+                            gameOver();
+                        }
+                    }
+                    enemy.remove(); // Remove enemy if it reaches the bottom or the bucket
+                    clearInterval(fallInterval);
+                    setTimeout(createEnemy, Math.max(3000 - score * 10, 500));
+                } else {
+                    enemy.style.top = currentTop + 10 + "px";
+                }
+            }, fallSpeed);
+        }
+
+        function gameOver() {
+            // Hide the game area and show the start menu again
+            gameArea.style.display = "none";
+            startMenu.style.display = "block";
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft" && bucketPosition > 0) {
+                bucketPosition -= 20;
+            } else if (event.key === "ArrowRight" && bucketPosition < gameArea.clientWidth - 60) {
+                bucketPosition += 20;
+            }
+            bucket.style.left = bucketPosition + "px";
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
