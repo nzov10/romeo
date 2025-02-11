@@ -69,6 +69,9 @@
             <p>1. Use the bucket to collect the falling cash.</p>
             <p>2. Watch out for Hanky Panky.</p>
             <p>3. Stay as far away from Hanky Panky, he has long arms.</p>
+            <p><strong>Controls:</strong></p>
+            <p>Desktop: Use the Left and Right arrow keys to move the bucket.</p>
+            <p>Mobile: Swipe left or right to move the bucket.</p>
         </div>
         <button id="startButton">Start Game</button>
     </div>
@@ -88,6 +91,9 @@
         let bucketPosition = 170;
         const startMenu = document.getElementById("startMenu");
         const startButton = document.getElementById("startButton");
+
+        // Detect if the user is on mobile or desktop
+        const isMobile = window.innerWidth <= 800;
 
         startButton.addEventListener("click", () => {
             startMenu.style.display = "none";
@@ -200,17 +206,37 @@
             startMenu.style.display = "block";
         }
 
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "ArrowLeft" && bucketPosition > 0) {
-                bucketPosition -= 20;
-            } else if (event.key === "ArrowRight" && bucketPosition < gameArea.clientWidth - 60) {
-                bucketPosition += 20;
-            }
-            bucket.style.left = bucketPosition + "px";
-        });
+        // Controls based on device type
+        if (isMobile) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            gameArea.addEventListener("touchstart", (event) => {
+                touchStartX = event.touches[0].clientX;
+            });
+
+            gameArea.addEventListener("touchmove", (event) => {
+                touchEndX = event.touches[0].clientX;
+                const movement = touchEndX - touchStartX;
+                bucketPosition = Math.min(Math.max(bucketPosition + movement, 0), gameArea.clientWidth - 60);
+                bucket.style.left = bucketPosition + "px";
+                touchStartX = touchEndX;
+            });
+        } else {
+            // Keyboard event listeners for desktop
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowLeft" && bucketPosition > 0) {
+                    bucketPosition -= 20;
+                } else if (event.key === "ArrowRight" && bucketPosition < gameArea.clientWidth - 60) {
+                    bucketPosition += 20;
+                }
+                bucket.style.left = bucketPosition + "px";
+            });
+        }
     </script>
 </body>
 </html>
+
 
 
 
